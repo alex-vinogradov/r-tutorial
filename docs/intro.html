@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="uk-UA" xml:lang="uk-UA"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.207">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Т’юторіал з R для психологів - 1&nbsp; Вступ</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./part1.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Вступ</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Т’юторіал з R для психологів</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Передмова</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Вступ</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Приступаємо до аналізу</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Висновки</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">на цій сторінці</h2>
+   
+  <ul>
+  <li><a href="#аналіз-останніх-публікацій" id="toc-аналіз-останніх-публікацій" class="nav-link active" data-scroll-target="#аналіз-останніх-публікацій"><span class="toc-section-number">1.1</span>  Аналіз останніх публікацій</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Вступ</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Перед українськими психологами в наш час стоїть дуже амбітна мета: якомога швидше інтегруватися в світову науку і публікувати результати своїх досліджень в міжнародних журналах, які індексуються наукометричними базами Scopus і Web of Science. Це дуже непросте завдання, зважаючи на суттєве відставання вітчизняної психології у використанні сучасних статистичних і психометричних методів через обмеженість доступу до відповідної літератури і програмного забезпечення. Ситуацію суттєво ускладнює те, що внаслідок так званої Кризи Довіри (Credibility Crisis) до результатів емпіричних психологічних досліджень, яка виникла перш за все внаслідок проблем з їхньою низькою відтворюваністю, наші західні колеги стоять перед необхідністю здійснити докорінну ревізію методологічних засад психологічної науки. Формально початок кризи відтворюваності датується 2011 роком, коли команда з 270 науковців в галузі психології здійснила спробу повторити результати 100 експериментальних і кореляційних досліджень, опублікованих у трьох провідних американських психологічних журналах. Результати виявилися дуже невтішними: 64% (а в соціальній психології 80%) знахідок оригінальних досліджень не вдалося відтворити, незважаючи на великий об’єм вибірок і декілька спроб. Більше того, величина ефектів виявилася вдвічі меншою від тих, які повідомлялися в оригінальних публікаціях (Open Science Collaboration, 2015).</p>
+<p>Осмислення цих шокуючих знахідок привело вчених до висновків, що низька відтворюваність зумовлюється цілою низкою чинників: невисокою якістю психологічних вимірювальних інструментів, недостатньою увагою до питань адекватного планування досліджень, типовою практикою перевірки статистичних гіпотез і так званими «сумнівними дослідницькими практиками» (questionable research practices), до яких вдаються дослідники, щоб за будь-яку ціну отримати «статистично значущі результати». Типовим прикладом такого хибного підходу є розповсюджена в українській психології схема проведення емпіричного дослідження: на невеликій вибірці (30-60 досліджуваних) збираються дані за допомогою декількох десятків запитальників (часто дуже подібних за характером питань), обчислюються всі можливі кореляції між їхніми шкалами, а потім вибірково публікуються тільки статистично значущі зв’язки чи відмінності. При цьому автор може робити вигляд, що його концепція начебто ці зв’язки і відмінності передбачала до збирання даних. Такий дизайн дозволяє гарантовано отримувати статистично значущі кореляції в достатній кількості, навіть якщо змінні містять просто випадкові числа. Розповсюдженість подібних сумнівних дослідницьких практик дала можливість стверджувати, що «більшість опублікованих результатів досліджень є хибними» (Ioannidis, 2005).</p>
+<p>Таким чином, для того, щоб дослідження українських психологів були конкурентоспроможними на світовому академічному ринку в сучасних умовах, ми маємо бути в курсі запропонованих заходів подолання кризи відтворюваності (Kline, 2013, 2019; Munafò et al., 2017):</p>
+<ol type="1">
+<li>Приділяти належну увагу якості психологічного вимірювання. Для цього слід активніше користуватися останніми досягненнями в галузі сучасної психометричної теорії – моделюванням структурними рівняннями, багаторівневим моделюванням, теорією тестових завдань (Baker &amp; Kim, 2017; Borsboom, 2006);</li>
+<li>Здійснити реформу практики застосування перевірки статистичних гіпотез в емпіричних дослідженнях і її викладання студентам: планувати об’єм вибірки з врахуванням потужності статистичних критеріїв і очікуваної величини ефекту, ширше використовувати довірчі інтервали (перш за все для величини ефекту) і графічні засоби для подання результатів (Cumming, 2011; Ellis, 2010);</li>
+<li>Враховувати сучасні вимоги до прозорого, повного і адекватного представлення процесу і результатів емпіричного дослідження в статтях і монографіях (Cooper, 2020; Publication Manual of the American Psychological Association, 2019);</li>
+<li>Спиратися на принципи Відкритої Науки (Open Science): забезпечувати вільний доступ до наукових статей і рецензій на них, вимірювальних інструментів, а також отриманих емпіричних даних і скриптів здійсненого дослідниками статистичного аналізу (Kline, 2019).</li>
+</ol>
+<p>На заваді засвоєнню українськими науковцями сучасних вимог до проведення і публікації результатів кількісних емпіричних досліджень стає викладання статистичних методів і психометрики з використанням застарілого комерційного програмного забезпечення (наприклад, IBM SPSS Statistics). Відомий фахівець Ренд Уілкокс у своїй монографії з сучасних статистичних методів для соціальних і поведінкових наук пише: «SPSS є дуже негнучкий, коли справа доходить до застосування нових і покращених методів, які з’явилися протягом останніх 50 років. Оскільки SPSS не оновлює своє програмне забезпечення належним чином, цей пакет був виключений з розгляду, коли обиралися програми аналізу для цієї книги» (Wilcox, 2017, с. 3). І дійсно, практично до 27 версії в цьому пакеті були відсутня можливість обчислити величину ефектів при порівнянні середніх чи побудувати довірчі інтервали для коефіцієнтів кореляції. Окрім цього, мають місце і суто практичні проблеми: IBM SPSS Statistics вимагає для роботи значних ресурсів, через що студенти не можуть його запускати на своїх малопотужних комп’ютерах чи видаляють відразу після прослуховування курсу з аналізу даних для вивільнення місця на жорсткому диску, а коли надходить час скористатися пакетом при проведенні власних досліджень, мають проблеми з пошуком і інсталяцією піратських копій пакету (особливо під інші операційні системи, ніж Microsoft Windows).</p>
+<p>Вирішенням вказаних вище проблем може стати впровадження у навчання і наукову роботу українських студентів, аспірантів і науковців мови програмування і середовища R. Мова R – це відкрите програмне забезпечення, яке дуже швидко розвивається завдяки зусиллям фахівців із статистики і численної армії аналітиків, містить найсучасніші статистичні методи і повністю відповідає потребам статистичної реформи в психології та принципам Відкритої Науки.</p>
+<section id="аналіз-останніх-публікацій" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="аналіз-останніх-публікацій"><span class="header-section-number">1.1</span> Аналіз останніх публікацій</h2>
+<p>У зв’язку з значною вартістю комерційного програмного забезпечення статистичного аналізу даних і перевагам відкритого програмного забезпечення, викладання методологічних дисциплін в західних університетах поступово переорієнтовується на застосування мов програмування R, Python і Julia. Швидкими темпами збільшується кількість наукових публікацій в наукових психологічних журналах, які базуються на використанні R для проведення аналізу даних. Наприклад, в журналі Journal of Research in Personality (імпакт-фактор 2.767), в 2014 була опублікована лише одна така стаття, а у 2018-му і 2019-му – вже 10 і 8 відповідно. У 2015 році цілий спеціальний випуск цього журналу був присвячений використанню R в психології. Саме завдяки R став дуже популярним особливий жанр журнальних публікацій – статті-т’юторіали, які на конкретних прикладах пояснюють використання як базових, так і просунутих сучасних статистичних методів. Ось лише декілька нещодавно опублікованих т’юторіалів: в статті (Costantini et al., 2015) читачам запропоновано ознайомитися на практичних прикладах з новітньою методологією використання мережевого аналізу в царині психології особистості. Стаття (Bürkner &amp; Vuorre, 2019) присвячена застосуванню моделей порядкового регресійного аналізу в психології. Т’юторіал (Assink &amp; Wibbelink, 2016) покроково знайомить психологів з тим, як за допомогою методів, реалізованих в R, здійснювати багаторівневий мета-аналіз. Сьогодні подібних публікацій у західних психологічних журналах нараховується вже десятками.</p>
+<p>Особливої уваги вітчизняних фахівців заслуговує журнал відкритого доступу Collabra:Psychology (https://www.collabra.org) – офіційне видання наукового товариства Society for the Improvement of Psychological Science («Товариство з покращення психологічної науки»). В цьому журналі у відповідності принципам відкритої Науки статті мають містити як емпіричні дані проведеного авторами дослідження, так й скрипти їхнього статистичного аналізу (частіше за все на мові програмування R). Все частіше західні психологічні журнали вимагають наявності в статті розділу Data Availability Statement (заява про доступність даних) і посилання на сховище, в якому інші дослідники можуть знайти використані в дослідженні стимульний матеріал, таблиці даних, а також синтаксис трансформацій і аналітичних процедур (Greiff et al., 2020). На мою думку, подібні вимоги варто запровадити й у вітчизняних психологічних виданнях. Для зберігання такої інформації створюються численні сховища, де науковці можуть безплатно розмістити свої матеріали для публічного доступу. Одним з таких важливих ресурсів є Open Science Framework, який належить Центру Відкритої Науки (https://osf.io/).</p>
+<p>Публікації в журналі Collabra:Psychology можуть вважатися взірцями сучасного підходу до проведення психологічного дослідження, на яких можна вчитися тому, як слід використовувати R для збирання і обробки даних на всіх його етапах. Поступово мова і середовище програмування R стає також основою університетських підручників з аналізу даних для студентів в галузі соціальних і поведінкових наук. Наприклад, Енді Філд, автор одного з найбільш популярних підручників із статистичного аналізу даних за допомогою відомого пакету IBM SPSS Statistics, ще у 2012 році видав аналогічний підручник значного об’єму (992 сторінки!) для мови програмування R (Field et al., 2012). Ще раніше вийшов підручник з аналізу даних для психологів, в якому одночасно висвітлюються одночасно і R, і SPSS Statistics (Rasch et al., 2011). Більше того, навіть у дуже популярній серії посібників For Dummies («Для Чайників») з’явилося вже друге видання підручника з статистичного аналізу в R (Schmuller, 2017).</p>
+<p>Зростає також кількість публікацій, доступних широкому колу вітчизняних дослідників. Російською мовою видано декілька перекладів популярних англомовних підручників з R (Кабаков, 2014; Мэтлофф, 2019; Уикем &amp; Гроулмунд, 2016), а також оригінальні монографії авторів з РФ (Мастицкий &amp; Шитиков, 2015; Шипунов et al., 2012). Українською мовою, наскільки мені відомо, поки існує тільки один підручник з R, розрахований на студентів механіко-математичного факультету спеціальностей «Статистика» і «Математика» (Майборода, 2019).</p>
+<p>Виокремлення невирішених частин загальної проблеми. Мова R дуже динамічно розвивається, тому переклади західних підручників швидко застарівають. Також для більшості вказаних вище джерел російською і українською мовами характерним є, з одного боку, надмірна кількість непотрібної для новачка інформації, а з іншого боку – брак важливих для психолога відомостей про статистичні методи, за допомогою яких пропонується подолання кризи відтворюваності. Початківцю ж часто потрібен швидкий шлях для вирішення того конкретного завдання аналізу емпіричних даних, яке перед ним постало у зв’язку з досягненням певної освітньої чи наукової мети. Отже, існує нагальна потреба відбору мінімальної кількості сучасних аналітичних інструментів, які можуть використовуватися студентами і аспірантами в галузі психології для обробки емпіричних даних у відповідності до сучасних вимог. Частково цю задачу вирішують статистичні програми, які надбудовуються над мовою R: jamovi (http://jamovi.org) та JASP (https://jasp-stats.org/). Ці програми будуються на ретельно підібраному наборі статистичних методів і мають простий для взаємодії з користувачем графічний інтерфейс. Проте, вони поки що суттєво обмежені у функціональності і скоріше перешкоджають повноцінному оволодінню сучасним статистичним програмним забезпеченням. В цьому т’юторіалі я використав основну частину функцій саме з пакету jmv, який покладено в основу програми jamovi, доповнюючи її при необхідності функціями з інших пакетів.</p>
+<p>Мета статті – перш за все методична: познайомити українських дослідників з можливостями мови програмування і середовища R, навести базову інформацію, яка дозволить студентам і науковцям розпочати використання R в психологічних дослідженнях у відповідності до запропонованих шляхів виходу з кризи відтворюваності. Підпорядкована мета – сприяти розповсюдженню знання принципів Відкритої Науки у вітчизняній науці. Заява про доступність даних. У відповідності до принципів Відкритої Науки таблиця даних (див. https://osf.io/egs3d/) і скрипт статистичного аналізу (див. https://osf.io/x3wfe/) розміщено на сайті Open Science Framework, що дає можливість повністю відтворити наведені в цій статті результати.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Передмова</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./part1.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Приступаємо до аналізу</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

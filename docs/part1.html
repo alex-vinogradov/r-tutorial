@@ -199,6 +199,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#величина-ефекту" id="toc-величина-ефекту" class="nav-link" data-scroll-target="#величина-ефекту"><span class="toc-section-number">2.5</span>  Величина ефекту</a></li>
   <li><a href="#приклад-визначення-обєму-вибірки" id="toc-приклад-визначення-обєму-вибірки" class="nav-link" data-scroll-target="#приклад-визначення-обєму-вибірки"><span class="toc-section-number">2.6</span>  Приклад визначення об’єму вибірки</a></li>
   <li><a href="#якість-даних" id="toc-якість-даних" class="nav-link" data-scroll-target="#якість-даних"><span class="toc-section-number">2.7</span>  Якість даних</a></li>
+  <li><a href="#порівняння-середніх-двох-незалежних-сукупностей" id="toc-порівняння-середніх-двох-незалежних-сукупностей" class="nav-link" data-scroll-target="#порівняння-середніх-двох-незалежних-сукупностей"><span class="toc-section-number">2.8</span>  Порівняння середніх двох незалежних сукупностей</a></li>
+  <li><a href="#порівняння-середніх-більше-ніж-двох-незалежних-сукупностей" id="toc-порівняння-середніх-більше-ніж-двох-незалежних-сукупностей" class="nav-link" data-scroll-target="#порівняння-середніх-більше-ніж-двох-незалежних-сукупностей"><span class="toc-section-number">2.9</span>  Порівняння середніх більше ніж двох незалежних сукупностей</a></li>
+  <li><a href="#кореляційний-аналіз" id="toc-кореляційний-аналіз" class="nav-link" data-scroll-target="#кореляційний-аналіз"><span class="toc-section-number">2.10</span>  Кореляційний аналіз</a></li>
   </ul>
 </nav>
     </div>
@@ -386,7 +389,7 @@ NOTE: n is number in *each* group</code></pre>
 </div>
 </div>
 <p>Аналогічним чином визначається потрібний об’єм вибірки для виявлення слабких ефектів перед проведенням досліджень за допомогою інших трьох критеріїв: однофакторного дисперсійного аналізу з трьома групами (482 спостереження), коефіцієнту кореляції Пірсона (782 спостереження) та критерію w Коена для зв’язку в таблиці сполучення з п’ятьма рядками і двома стовпчиками (1194 спостереження). Аргумент «кількість ступенів свободи» для останнього випадку визначається як df = (кількість рядків – 1)(кількість стовпчиків – 1):</p>
-<p>Фрагмент коду 3. Визначення потужності для f², r і w</p>
+<p>Фрагмент коду 3. Визначення потужності для f²</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.f2.test</span>(<span class="at">u =</span> <span class="dv">3</span> <span class="sc">-</span> <span class="dv">1</span>, <span class="at">f2 =</span> <span class="fl">0.02</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.80</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -400,23 +403,52 @@ NOTE: n is number in *each* group</code></pre>
           power = 0.8</code></pre>
 </div>
 </div>
-<pre><code>pwr.r.test(r = 0.1, sig.level = 0.05, power = 0.8)
+<p>Визначення потужності для r</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.r.test</span>(<span class="at">r =</span> <span class="fl">0.1</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     approximate correlation power calculation (arctangh transformation) 
 
-pwr.chisq.test(w = 0.1, df = 4, sig.level = 0.05, power = 0.8)</code></pre>
-<p>Згідно сучасних вимог до публікацій, розроблених Американською Психологічною Асоціацією (далі АПА), статті мають містити опис проведеного перед дослідженням аналізу статистичної потужності, а також всіх відхилень від запланованого об’єму вибірок (Publication Manual of the American Psychological Association, 2019).</p>
+              n = 781.7516
+              r = 0.1
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided</code></pre>
+</div>
+</div>
+<p>Визначення потужності для w</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.chisq.test</span>(<span class="at">w =</span> <span class="fl">0.1</span>, <span class="at">df =</span> <span class="dv">4</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">power =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Chi squared power calculation 
+
+              w = 0.1
+              N = 1193.529
+             df = 4
+      sig.level = 0.05
+          power = 0.8
+
+NOTE: N is the number of observations</code></pre>
+</div>
+</div>
+<p>Згідно сучасних вимог до публікацій, розроблених Американською Психологічною Асоціацією (далі АПА), наукові статті мають містити опис проведеного перед дослідженням аналізу статистичної потужності, а також всіх відхилень від запланованого об’єму вибірок (Publication Manual of the American Psychological Association, 2019).</p>
 </section>
 <section id="якість-даних" class="level2" data-number="2.7">
 <h2 data-number="2.7" class="anchored" data-anchor-id="якість-даних"><span class="header-section-number">2.7</span> Якість даних</h2>
-<p>На наступному, четвертому етапі аналізу, здійснюється перевірка якості зібраної інформації – визначення надійності даних, на основі яких обчислюються інтегральні показники (шкали), вивчення розподілу змінних, пошук незвичних спостережень. Легковажне ставлення дослідників до якості психологічного вимірювання є однією з суттєвих причин кризи відтворюваності. В літературі для позначення цієї проблеми використовується термін «сумнівні вимірювальні практики» (Flake &amp; Fried, 2019). Стандарти АПА вимагають надання інформації про надійність і свідчення про валідність вимірювальних інструментів (тестів, спостерігачів, апаратури) на вибірці дослідження. Розповсюджену сьогодні практику наводити показник надійності-узгодженості α (альфа) Кронбаха західні методологи вважають застарілою і не завжди адекватною, оскільки він виходить з припущень про так звану «тау-еквівалентність» пунктів шкали (однакове навантаження на одну латентну змінну) і може мати високе значення, незважаючи на неодномірність даних (тобто, за відповідями можуть стояти декілька навіть не пов’язаних між собою латентних змінних). Більш коректний підхід полягає у перевірці явно заданої вимірювальної моделі засобами конфірматорного факторного аналізу і обчисленні міри надійності на її основі. Ця техніка знаходиться за рамками предмету даного т’юторіалу, тому тут я наведу найпростіший варіант: обчислення такого показника надійності, як ω (омега) МакДональда, на основі припущення про одномірність сукупності індикаторів на прикладі даних 10 питань шкали PSS:</p>
+<p>На наступному, четвертому етапі аналізу, здійснюється перевірка якості зібраної інформації – визначення надійності даних, на основі яких обчислюються інтегральні показники (шкали), вивчення характеру розподілу змінних, пошук незвичних спостережень. Легковажне ставлення дослідників до якості психологічного вимірювання є однією з суттєвих причин кризи відтворюваності. В літературі для позначення цієї проблеми використовується термін «сумнівні вимірювальні практики» (Flake &amp; Fried, 2019). Стандарти АПА вимагають надання інформації про надійність і свідчення про валідність вимірювальних інструментів (тестів, спостерігачів, апаратури) на вибірці дослідження. Розповсюджену сьогодні практику наводити показник надійності-узгодженості α (альфа) Кронбаха західні методологи вважають застарілою і не завжди адекватною, оскільки він виходить з припущень про так звану «тау-еквівалентність» пунктів шкали (однакове навантаження на одну латентну змінну) і може мати високе значення, незважаючи на неодномірність даних (тобто, за відповідями можуть стояти декілька навіть не пов’язаних між собою латентних змінних). Більш коректний підхід полягає у перевірці явно заданої вимірювальної моделі засобами конфірматорного факторного аналізу і обчисленні міри надійності на її основі. Ця техніка знаходиться за рамками предмету даного т’юторіалу, тому тут я наведу найпростіший варіант: обчислення такого показника надійності, як ω (омега) МакДональда, на основі припущення про одномірність сукупності індикаторів на прикладі даних 10 питань шкали PSS:</p>
 <p>Фрагмент коду 4. Обчислення α Кронбаха і ω МакДональда</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jmv)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">reliability</span>(</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> pss, <span class="at">vars =</span> <span class="fu">c</span>(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10),</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">revItems =</span> <span class="fu">c</span>(b4, b5, b7, b8),</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">omegaScale =</span> <span class="cn">TRUE</span>, <span class="at">omegaItems =</span> <span class="cn">TRUE</span> </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jmv)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">reliability</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> pss, <span class="at">vars =</span> <span class="fu">c</span>(b1, b2, b3, b4, b5, b6, b7, b8, b9, b10),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">revItems =</span> <span class="fu">c</span>(b4, b5, b7, b8),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">omegaScale =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">alphaItems =</span> <span class="cn">TRUE</span>, <span class="at">omegaItems =</span> <span class="cn">TRUE</span>, <span class="at">itemRestCor =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">corPlot =</span> <span class="cn">TRUE</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  RELIABILITY ANALYSIS
@@ -429,22 +461,25 @@ pwr.chisq.test(w = 0.1, df = 4, sig.level = 0.05, power = 0.8)</code></pre>
  ───────────────────────────────────────── 
 
 
- Item Reliability Statistics 
- ─────────────────────────── 
-            McDonald's ω   
- ─────────────────────────── 
-   b1          0.8565352   
-   b2          0.8393346   
-   b3          0.8436080   
-   b4  ᵃ       0.8422876   
-   b5  ᵃ       0.8499248   
-   b6          0.8520474   
-   b7  ᵃ       0.8446754   
-   b8  ᵃ       0.8438159   
-   b9          0.8501385   
-   b10         0.8379350   
- ─────────────────────────── 
+ Item Reliability Statistics                                        
+ ────────────────────────────────────────────────────────────────── 
+            item-rest correlation    Cronbach's α    McDonald's ω   
+ ────────────────────────────────────────────────────────────────── 
+   b1                   0.4345375       0.8535364       0.8565352   
+   b2                   0.6465063       0.8349275       0.8393346   
+   b3                   0.6046158       0.8392299       0.8436080   
+   b4  ᵃ                0.6036806       0.8395102       0.8422876   
+   b5  ᵃ                0.5104283       0.8469376       0.8499248   
+   b6                   0.4939364       0.8497210       0.8520474   
+   b7  ᵃ                0.5778153       0.8416911       0.8446754   
+   b8  ᵃ                0.5849540       0.8409838       0.8438159   
+   b9                   0.5228509       0.8463076       0.8501385   
+   b10                  0.6615872       0.8333067       0.8379350   
+ ────────────────────────────────────────────────────────────────── 
    ᵃ reverse scaled item</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>В цьому блоці функції reliability() з пакету jmv передаються такі аргументи: data – таблиця даних pss, в якій містяться відповіді досліджуваних, vars ¬– вектор імен десяти змінних b1-b10, які є індикаторами суб’єктивного стресу, revItems – вектор імен чотирьох змінних з зворотним ключем, omegaScale – опція, яка замовляє виведення показника ω, omegaItems – опція, яка замовляє виведення інформації про надійність шкали за показником ω, коли з неї видалено відповідний індикатор.</p>
@@ -454,55 +489,217 @@ pwr.chisq.test(w = 0.1, df = 4, sig.level = 0.05, power = 0.8)</code></pre>
 <p>Переконавшись у тому, що шкали мають прийнятну надійність, можна переходити до створення потрібних нових змінних і перетворення існуючих. Перший тип перетворень – створення категоріальних змінних чи факторів з кількісних. У нашій таблиці даних pss є змінна gender, яка в закодованому вигляді містить інформацію про стать досліджуваного: одиницею позначені чоловіки, двійкою – жінки. Ця змінна має мати номінальну шкалу, оскільки її значення вказують на приналежність досліджуваного до певної категорії. Виконання потрібного перетворення здійснюється за допомогою функції factor():</p>
 <p>Фрагмент коду 5. Створення категоріальної змінної – номінального фактору</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pss<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> pss<span class="sc">$</span>gender, </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Чоловіки"</span>, <span class="st">"Жінки"</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pss<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> pss<span class="sc">$</span>gender, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Чоловіки"</span>, <span class="st">"Жінки"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Аргументами цієї функції є: x – змінна (стовпчик в таблиці даних), яку треба перетворити на фактор. Після знаку = у вищенаведеному фрагменті змінна вказується рядком pss$gender. Тобто, спочатку йде ім’я таблиці даних, потім спеціальний символ-розділювач $ (знак долара), а потім назва стовпчика в таблиці. Мова R має декілька альтернативних способів вказати ім’я однієї змінної: <code>pss[["gender"]]</code> або <code>pss[[12]]</code> – змінна gender розташована в дванадцятому стовпчику таблиці даних і до неї можна звернутися за номером 12. Подвійні квадратні дужки і знак долара використовуються для доступу до елементів списку, а таблиці даних є одним з варіантів списку.</p>
 <p>Аргумент levels (рівні фактора) має отримати вектор значень, які може приймати вхідна змінна (в даному випадку це числа 1 і 2). Аргументу labels передається вектор рядків, що відповідають текстовим позначенням рівнів фактору. Створений функцією вектор-фактор присвоюється новому стовпчику таблиці pss з назвою sex. Як бачимо, тут використовується спосіб звертання до змінних в таблиці даних з використанням знаку долара.</p>
 <p>Інші важливі перетворення змінних, які часто застосовуються в психологічних дослідженнях, включають в себе: 1) Обчислення інтегральних показників (шкал); 2) Категоризація неперервних змінних; 3) Перекодування одних значень змінної на інші; 4) Трансформації типу логарифм, квадратний корінь, піднесення у степінь тощо. Приклади таких перетворень наведені у фрагменті коду нижче. Для виконання багатьох перетворень зручніше за все використовувати функцію mutate() з пакету dplyr. Її першим аргументом є таблиця даних, яка містить необхідні змінні:</p>
 <p>Фрагмент коду 6. Основні трансформації змінних</p>
-<pre><code>## Перевертання шкали, Сумарний бал, Категоризація неперервної змінної
-library(dplyr)
-pss &lt;- mutate(
-  pss, 
-  b4 = 4 - b4, b5 = 4 - b5, 
-  b7 = 4 - b7, b8 = 4 - b8,
-  score1 = b1 + b2 + b3 + b6 + b9 + b10,
-  score2 = b4 + b5 + b7 + b8,
-  score = score1 + score2,
-  group = cut(score, breaks = 4, include.lowest = TRUE)
-)
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Перевертання шкали, Сумарний бал, Категоризація неперервної змінної</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
 
-# Створення змінної через перекодування існуючої
-library(car)
-pss$fin &lt;- recode(
-  pss$fin_state, as.factor = TRUE,
-  recodes = "1:2 = 'A'; 3 = 'B'; 4:5 = 'C'"
-)</code></pre>
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pss <span class="ot">&lt;-</span> <span class="fu">mutate</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  pss, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">b4 =</span> <span class="dv">4</span> <span class="sc">-</span> b4, <span class="at">b5 =</span> <span class="dv">4</span> <span class="sc">-</span> b5, </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">b7 =</span> <span class="dv">4</span> <span class="sc">-</span> b7, <span class="at">b8 =</span> <span class="dv">4</span> <span class="sc">-</span> b8,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">score1 =</span> b1 <span class="sc">+</span> b2 <span class="sc">+</span> b3 <span class="sc">+</span> b6 <span class="sc">+</span> b9 <span class="sc">+</span> b10,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">score2 =</span> b4 <span class="sc">+</span> b5 <span class="sc">+</span> b7 <span class="sc">+</span> b8,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> score1 <span class="sc">+</span> score2,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">cut</span>(score, <span class="at">breaks =</span> <span class="dv">4</span>, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Створення змінної через перекодування існуючої</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'car'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    recode</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pss<span class="sc">$</span>fin <span class="ot">&lt;-</span> <span class="fu">recode</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  pss<span class="sc">$</span>fin_state, <span class="at">as.factor =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">recodes =</span> <span class="st">"1:2 = 'A'; 3 = 'B'; 4:5 = 'C'"</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Всі інші аргументи, вказані через кому, визначають ті трансформації, які необхідно здійснити з існуючими змінними, наприклад: 1) для змінних b4, b5, b7, b8 перевертається шкала (це питання із зворотним ключем); 2) обчислюються три інтегральні показники score1 і score2 як сума балів за прямі і зворотні питання шкали PSS, а потім утворюється змінна score як їхня сума; 3) Змінна score розбивається на чотири рівних діапазони (категоризується) функцією cut().</p>
 <p>У другій частині наведеного фрагменту відбувається перекодування категоріальної змінної fin_state (фінансовий стан сім’ї досліджуваного) за допомогою функції recode() з пакету car. Її п’ять значень перекодовуються у три категорії A, B і C, оскільки наповненість першої і п’ятої категорій («Не вистачає грошей на їжу» та «Можемо купувати все, що захочемо») є недостатньою. Аргументу recodes передається рядок, в якому вказується схема перекодування існуючих значень у нові. Створений фактор fin з трьома рівнями буде використаний пізніше при проведенні дисперсійного аналізу.</p>
 <p>Таблиці і графіки розподілу (гістограми, боксплоти), а також описові статистики дають можливість зрозуміти поведінку змінних, діагностувати незвичайні спостереження і прийняти рішення про необхідні перетворення. Функція descriptives() з пакету jmv корисна тим, що виводить основні описові статистики і графіки:</p>
 <p>Фрагмент коду 7. Описові статистики</p>
-<pre><code>library(jmv)
-descriptives(
-  data = pss, vars = c(score1, score2, score, b1, b2),
-  skew = TRUE, sd = TRUE, kurt = TRUE, 
-  hist = TRUE, freq = TRUE, box = TRUE 
-)</code></pre>
-<p>Порівняння середніх двох незалежних сукупностей. Після підготовки даних можна перейти до застосування статистичних критеріїв, призначених для перевірки гіпотез про існування відмінностей і зв’язків у популяції, що вивчається. Почнемо з порівняння двох незалежних груп ¬– чоловіків і жінок – за середнім значенням і дисперсією. Наступний блок містить виклик функції ttestIS(), яка виводить велику кількість корисної табличної і графічної інформації для такого порівняння:</p>
-<p>Фрагмент коду 8. Замовлення t-критерію Ст’юдента для незалежних груп</p>
-<pre><code>library(jmv)
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jmv)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">descriptives</span>(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> pss, <span class="at">vars =</span> <span class="fu">c</span>(score1, score2, score, b1, b2),</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">skew =</span> <span class="cn">TRUE</span>, <span class="at">sd =</span> <span class="cn">TRUE</span>, <span class="at">kurt =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">hist =</span> <span class="cn">TRUE</span>, <span class="at">freq =</span> <span class="cn">TRUE</span>, <span class="at">box =</span> <span class="cn">TRUE</span> </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ DESCRIPTIVES
 
-ttestIS(
-  formula = score ~ sex, data = pss,
-  welchs = TRUE, mann = TRUE, hypothesis = "twoGreater",
-  norm = TRUE, eqv = TRUE,
-  effectSize = TRUE, ciES = TRUE,
-  desc = TRUE, plots = TRUE
-)</code></pre>
+ Descriptives                                                                                     
+ ──────────────────────────────────────────────────────────────────────────────────────────────── 
+                          score1        score2        score          b1             b2            
+ ──────────────────────────────────────────────────────────────────────────────────────────────── 
+   N                             462           462            462            462            462   
+   Missing                         0             0              0              0              0   
+   Mean                     14.44372      7.270563       21.71429       2.127706       2.209957   
+   Median                   14.00000      7.000000       22.00000       2.000000       2.000000   
+   Standard deviation       5.073866      3.220454       7.496968       1.146025       1.202523   
+   Minimum                  0.000000      0.000000       0.000000       0.000000       0.000000   
+   Maximum                  24.00000      16.00000       40.00000       4.000000       4.000000   
+   Skewness               -0.1744896     0.2600642    -0.02614378    -0.01726249    -0.08665909   
+   Std. error skewness     0.1135929     0.1135929      0.1135929      0.1135929      0.1135929   
+   Kurtosis               -0.5640807    -0.3074558     -0.5252872     -0.7929955     -0.9977452   
+   Std. error kurtosis     0.2267030     0.2267030      0.2267030      0.2267030      0.2267030   
+ ──────────────────────────────────────────────────────────────────────────────────────────────── 
+
+
+ FREQUENCIES
+
+ Frequencies of b1                                  
+ ────────────────────────────────────────────────── 
+   Levels    Counts    % of Total    Cumulative %   
+ ────────────────────────────────────────────────── 
+   0             36       7.79221         7.79221   
+   1            106      22.94372        30.73593   
+   2            146      31.60173        62.33766   
+   3            111      24.02597        86.36364   
+   4             63      13.63636       100.00000   
+ ────────────────────────────────────────────────── 
+
+
+ Frequencies of b2                                  
+ ────────────────────────────────────────────────── 
+   Levels    Counts    % of Total    Cumulative %   
+ ────────────────────────────────────────────────── 
+   0             35       7.57576         7.57576   
+   1            112      24.24242        31.81818   
+   2            114      24.67532        56.49351   
+   3            123      26.62338        83.11688   
+   4             78      16.88312       100.00000   
+ ────────────────────────────────────────────────── </code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-10-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-10-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-10-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-10-6.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-10-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-10-8.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-10-9.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-10-10.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="порівняння-середніх-двох-незалежних-сукупностей" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="порівняння-середніх-двох-незалежних-сукупностей"><span class="header-section-number">2.8</span> Порівняння середніх двох незалежних сукупностей</h2>
+<p>Після підготовки даних можна перейти до застосування статистичних критеріїв, призначених для перевірки гіпотез про існування відмінностей і зв’язків у популяції, що вивчається. Почнемо з порівняння двох незалежних груп ¬– чоловіків і жінок – за середнім значенням і дисперсією. Наступний блок містить виклик функції ttestIS(), яка виводить велику кількість корисної табличної і графічної інформації для такого порівняння:</p>
+<p>Фрагмент коду 8. Замовлення t-критерію Ст’юдента для незалежних груп</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jmv)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ttestIS</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> score <span class="sc">~</span> sex, <span class="at">data =</span> pss,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">welchs =</span> <span class="cn">TRUE</span>, <span class="at">mann =</span> <span class="cn">TRUE</span>, <span class="at">hypothesis =</span> <span class="st">"twoGreater"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">norm =</span> <span class="cn">TRUE</span>, <span class="at">eqv =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">effectSize =</span> <span class="cn">TRUE</span>, <span class="at">ciES =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">desc =</span> <span class="cn">TRUE</span>, <span class="at">plots =</span> <span class="cn">TRUE</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ INDEPENDENT SAMPLES T-TEST
+
+ Independent Samples T-Test                                                                                                                
+ ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+                              Statistic    df          p                                         Effect Size    Lower         Upper        
+ ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+   score    Student's t       -4.171849    460.0000    0.0000181    Cohen's d                     -0.4267846    -0.6289514    -0.2241636   
+            Welch's t         -4.207164    254.6348    0.0000179    Cohen's d                     -0.4285835                               
+            Mann-Whitney U     16682.50                0.0000179    Rank biserial correlation      0.2441953                               
+ ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── 
+   Note. Hₐ μ &lt;sub&gt;Чоловіки&lt;/sub&gt; &lt; μ &lt;sub&gt;Жінки&lt;/sub&gt;
+
+
+ ASSUMPTIONS
+
+ Normality Test (Shapiro-Wilk)       
+ ─────────────────────────────────── 
+            W            p           
+ ─────────────────────────────────── 
+   score    0.9941355    0.0725506   
+ ─────────────────────────────────── 
+   Note. A low p-value suggests
+   a violation of the assumption
+   of normality
+
+
+ Homogeneity of Variances Test (Levene's)         
+ ──────────────────────────────────────────────── 
+            F            df    df2    p           
+ ──────────────────────────────────────────────── 
+   score    0.2761183     1    460    0.5995100   
+ ──────────────────────────────────────────────── 
+   Note. A low p-value suggests a violation
+   of the assumption of equal variances
+
+
+ Group Descriptives                                                            
+ ───────────────────────────────────────────────────────────────────────────── 
+            Group       N      Mean        Median      SD          SE          
+ ───────────────────────────────────────────────────────────────────────────── 
+   score    Чоловіки    135    19.48889    19.00000    7.261498    0.6249702   
+            Жінки       327    22.63303    23.00000    7.409984    0.4097731   
+ ───────────────────────────────────────────────────────────────────────────── </code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Аргументу formula передається вираз, який містить символ ~ (тильда). Зліва від тильди вказано залежну неперервну змінну – сумарний бал score за шкалою стресу PSS. Після тильди йде незалежна дихотомічна змінна sex, за значеннями якої досліджувані потрапляють в одну з двох категорій за статтю. Додатково до t-критерію Ст’юдента для незалежних сукупностей функції замовляється обчислення критерію Уелча (аргумент welchs = TRUE), непараметричного критерію Манна-Уітні (аргумент mann = TRUE), величини ефекту d Коена і його довірчих інтервалів (аргументи effectSize = TRUE і ciES = TRUE), критерію Лівена для перевірки гіпотези про рівність дисперсій в двох сукупностях (аргумент eqv = TRUE), а також побудова таблиці з описовими статистиками і діаграми (аргументи desc = TRUE, plots = TRUE). Нарешті, аргумент hypothesis = “twoGreater” визначає тип альтернативної гіпотези: «у другій групі (тобто, у жінок) середнє значення є більшим у популяції».</p>
 <p>Як можемо бачити у наступній таблиці, всі три критерія дають можливість відкинути нульову гіпотезу про відсутність відмінностей середніх значень суб’єктивного переживання стресу чоловіків і жінок у популяції студентів НаУКМА в 2019 році на рівні α = 0.001 й прийняти альтернативну гіпотезу: середнє значення для чоловіків є меншим, ніж у жінок.</p>
 <p>Величина ефекту d дорівнює -0.427 (від’ємне значення з’явилося внаслідок того, що від меншого середнього віднімалося більше). За Дж. Коеном, це ефект майже середньої сили. Що важливіше, ми отримали не тільки точкову оцінку величини ефекту, але й 95-відсотковий довірчий інтервал, який несе інформацію про точність цієї оцінки: в популяції величина ефекту може знаходитися в проміжку від слабкого до посереднього:</p>
@@ -526,16 +723,82 @@ Note. Hₐ Males &lt; Females</code></pre>
             Жінки       327    22.6      23.0    7.41    0.410   
  ───────────────────────────────────────────────────────────────</code></pre>
 <p>На основі цих описових статистик будується графік з довірчими інтервалами навколо середніх значень, який більш наочно передає знайдені відмінності у рівні суб’єктивного стресу (не наводиться за браком місця).</p>
-<p>Порівняння середніх більше ніж двох незалежних сукупностей. Якщо кількість груп, які порівнюються за середнім значенням, дві чи більше, дослідник може використати однофакторний дисперсійний аналіз для перевірки альтернативної гіпотези про те, що відмінності існують на рівні популяцій. На сьогоднішній день в методологічній літературі існує думка, що найкращим показником величини ефекту в цьому випадку є ω^2, а не η^2 – звичний показник частки поясненої дисперсії залежної змінної у вибірці, яка є зміщеною оцінкою поясненої дисперсії у популяції.</p>
+</section>
+<section id="порівняння-середніх-більше-ніж-двох-незалежних-сукупностей" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="порівняння-середніх-більше-ніж-двох-незалежних-сукупностей"><span class="header-section-number">2.9</span> Порівняння середніх більше ніж двох незалежних сукупностей</h2>
+<p>Якщо кількість груп, які порівнюються за середнім значенням, дві чи більше, дослідник може використати однофакторний дисперсійний аналіз для перевірки альтернативної гіпотези про те, що відмінності існують на рівні популяцій. На сьогоднішній день в методологічній літературі існує думка, що найкращим показником величини ефекту в цьому випадку є ω^2, а не η^2 – звичний показник частки поясненої дисперсії залежної змінної у вибірці, яка є зміщеною оцінкою поясненої дисперсії у популяції.</p>
 <p>Продемонструю використання однофакторного дисперсійного аналізу на прикладі даних про стрес. Нехай залежною змінною виступить score, сумарний бал по шкалі суб’єктивного стресу PSS, а незалежною – категоріальна змінна (фактор) fin, фінансовий стан сім’ї студента після перекодування. Фактор fin має три рівні після перекодування змінної fin_state: А – не вистачає грошей на їжу або вистачає на їжу, але одяг купувати вже складно, В – доводиться економити, щоб купити коштовні речі, С – можуть купувати деякі коштовні речі або можуть купувати все, що хочуть. Оскільки нестача фінансових ресурсів може виступати однією з прямих чи опосередкованих причин стресу, варто перевірити гіпотезу про існування відмінностей у сприйнятті стресу студентами в залежності від потрапляння в категорію А, В чи С. Для проведення аналізу скористаємося функцією ANOVA() з пакету jmv:</p>
 <p>Таблиця 5. Виклик однофакторного дисперсійного аналізу</p>
-<pre><code>library(jmv)
-ANOVA(
-  formula = score ~ fin, data = pss,
-  effectSize = "omega", homo = TRUE, norm = TRUE, 
-  postHoc = ~ fin, postHocCorr = "scheffe", 
-  emMeans = ~ fin, emmTables = TRUE
-)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jmv)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ANOVA</span>(</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> score <span class="sc">~</span> fin, <span class="at">data =</span> pss,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">effectSize =</span> <span class="st">"omega"</span>, <span class="at">homo =</span> <span class="cn">TRUE</span>, <span class="at">norm =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">postHoc =</span> <span class="sc">~</span> fin, <span class="at">postHocCorr =</span> <span class="st">"scheffe"</span>, </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">emMeans =</span> <span class="sc">~</span> fin, <span class="at">emmTables =</span> <span class="cn">TRUE</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ ANOVA
+
+ ANOVA - score                                                                               
+ ─────────────────────────────────────────────────────────────────────────────────────────── 
+                Sum of Squares    df     Mean Square    F           p            ω²          
+ ─────────────────────────────────────────────────────────────────────────────────────────── 
+   fin                807.5512      2      403.77558    7.382980    0.0006984    0.0268890   
+   Residuals        25102.7346    459       54.69005                                         
+ ─────────────────────────────────────────────────────────────────────────────────────────── 
+
+
+ ASSUMPTION CHECKS
+
+ Homogeneity of Variances Test (Levene's) 
+ ──────────────────────────────────────── 
+   F            df1    df2    p           
+ ──────────────────────────────────────── 
+   0.7530952      2    459    0.4714877   
+ ──────────────────────────────────────── 
+
+
+ Normality Test (Shapiro-Wilk) 
+ ───────────────────────────── 
+   Statistic    p           
+ ───────────────────────────── 
+   0.9947660    0.1180908   
+ ───────────────────────────── 
+
+
+ POST HOC TESTS
+
+ Post Hoc Comparisons - fin                                                               
+ ──────────────────────────────────────────────────────────────────────────────────────── 
+   fin         fin    Mean Difference    SE           df          t           p-scheffe   
+ ──────────────────────────────────────────────────────────────────────────────────────── 
+   A      -    B             3.994253    1.4619550    459.0000    2.732131    0.0246680   
+          -    C             5.279070    1.4265268    459.0000    3.700645    0.0011741   
+   B      -    C             1.284817    0.7254568    459.0000    1.771045    0.2095136   
+ ──────────────────────────────────────────────────────────────────────────────────────── 
+   Note. Comparisons are based on estimated marginal means
+
+
+ ESTIMATED MARGINAL MEANS
+
+ FIN
+
+ Estimated Marginal Means - fin                           
+ ──────────────────────────────────────────────────────── 
+   fin    Mean        SE           Lower       Upper      
+ ──────────────────────────────────────────────────────── 
+   A      26.16667    1.3501858    23.51335    28.81998   
+   B      22.17241    0.5606342    21.07069    23.27414   
+   C      20.88760    0.4604095    19.98283    21.79237   
+ ──────────────────────────────────────────────────────── </code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="part1_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>Аргументи formula і data грають ту саму роль, що й у прикладі з t-критерієм Ст’юдента, аргументу effectSize передається назва показника величини ефекту, аргументи postHoc і postHocCorr визначають, за якою змінною проводиться попарний аналіз різниці середніх та метод корекції статистичної значущості при множинних порівняннях. Аргументи homo і norm замовляють перевірку припущень про однорідність дисперсій і нормальність розподілу залежної змінної, важливі умови для застосування дисперсійного аналізу. Нарешті, аргументи emMeans і emmTables замовляють виведення таблиці і графіку з описовими статистиками по групах. Наведу лише дві таблиці з великої кількості результатів, які генерує ця функція:</p>
 <p>Таблиця 6. Таблиця дисперсійного аналізу і величина ефекту</p>
 <pre><code>ANOVA - score                                                       
@@ -548,9 +811,15 @@ Residuals           25103   459         54.7
 <p>Отже, F критерій виявився статистично значущим на рівні 0.001, а величина ефекту вказує на слабку залежність. Оскільки критерії Лівена і Шапіро-Уілка виявилися статистично незначущими (тобто, дані не суперечать припущенням про те, що залежна змінна має нормальний розподіл і її дисперсія однакова в трьох групах), ми можемо використовувати F критерій для висновку про рівність середніх.</p>
 <p>Зверніть увагу, що ми отримали лише точкову оцінку величини ефекту, отже, потрібні додаткові дії для побудови довірчого інтервалу. Скористаємося функцією omega.F() з пакету MOTE. Значення для її аргументів візьмемо з таблиці дисперсійного аналізу, яка була наведена вище:</p>
 <p>Фрагмент коду 9. Визначення довірчих інтервалів для величини ефекту ω²</p>
-<pre><code>library(MOTE)
-result &lt;- omega.F(dfm = 2, dfe = 459, Fvalue = 7.383, n = 462, a = 0.05)
-unlist(result[1:3])</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOTE)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">omega.F</span>(<span class="at">dfm =</span> <span class="dv">2</span>, <span class="at">dfe =</span> <span class="dv">459</span>, <span class="at">Fvalue =</span> <span class="fl">7.383</span>, <span class="at">n =</span> <span class="dv">462</span>, <span class="at">a =</span> <span class="fl">0.05</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(result[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      omega    omegalow   omegahigh 
+0.026889036 0.003981629 0.060585901 </code></pre>
+</div>
+</div>
 <p>Отримані результати подаються в публікації у наступному вигляді: ω^2=.027, 95% CI [0.004, 0.061]. Отже, ми отримали слабкий ефект, який в популяції всіх студентів НаУКМА 2019 року може насправді знаходитися у діапазоні від тривіально малого до посереднього. Для точнішої оцінки знадобиться більша вибірка. Зазвичай після того, як дослідник приймає загальну альтернативну гіпотезу про існування відмінностей середніх між якимись групами, цілком логічним є поставити питання: які саме групи відрізняються (Post Hoc латиною означає «після того, як»)? Наступна таблиця містить результати всіх попарних порівнянь груп:</p>
 <p>Таблиця 7. Попарні порівняння середніх значень</p>
 <pre><code>Post Hoc Comparisons - fin                                    
@@ -562,11 +831,56 @@ A   -   B                3.99   1.462   459   2.73    0.018
 B   -   C                1.28   0.725   459   1.77    0.181   
 ─────────────────────────────────────────────────────────────</code></pre>
 <p>Отже, лише найбідніші досліджувані статистично значущо відрізняються від представників двох інших категорій, різниця середніх за показником суб’єктивного стресу оцінюється в 3.99 і 5.38 балів за шкалою PSS відповідно.</p>
-<p>Кореляційний аналіз. У вітчизняній психології кореляційні дослідження зустрічаються значно частіше за експериментальні, тому у більшості публікацій наводяться результати парного кореляційного аналізу. Оскільки коефіцієнт кореляції вже є показником величини ефекту, для врахування сучасних методологічних вимог нам потрібно частіше: 1) Планувати об’єм вибірки у відповідності до очікуваної сили зв’язку; 2) Наводити в публікаціях довірчі інтервали для коефіцієнтів кореляції; 3) Використовувати корекцію на множинні порівняння при проведенні пошукових досліджень. Ось приклад того, як кореляційний аналіз можна провести в R за допомогою функції corr.test() з пакету psych:</p>
+</section>
+<section id="кореляційний-аналіз" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="кореляційний-аналіз"><span class="header-section-number">2.10</span> Кореляційний аналіз</h2>
+<p>У вітчизняній психології кореляційні дослідження зустрічаються значно частіше за експериментальні, тому у більшості публікацій наводяться результати парного кореляційного аналізу. Оскільки коефіцієнт кореляції вже є показником величини ефекту, для врахування сучасних методологічних вимог нам потрібно частіше: 1) Планувати об’єм вибірки у відповідності до очікуваної сили зв’язку; 2) Наводити в публікаціях довірчі інтервали для коефіцієнтів кореляції; 3) Використовувати корекцію на множинні порівняння при проведенні пошукових досліджень. Ось приклад того, як кореляційний аналіз можна провести в R за допомогою функції corr.test() з пакету psych:</p>
 <p>Фрагмент коду 10. Кореляційний аналіз</p>
-<pre><code>library(psych)
-cm &lt;- corr.test(x = pss[2:5], method = "pearson", adjust = "hochberg")
-print(cm, digits = 3, short = FALSE)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'psych'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:car':
+
+    logit</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:jmv':
+
+    pca, reliability</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>cm <span class="ot">&lt;-</span> <span class="fu">corr.test</span>(<span class="at">x =</span> pss[<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">method =</span> <span class="st">"pearson"</span>, <span class="at">adjust =</span> <span class="st">"hochberg"</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cm, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">short =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:corr.test(x = pss[2:5], method = "pearson", adjust = "hochberg")
+Correlation matrix 
+      b1    b2    b3    b4
+b1 1.000 0.434 0.415 0.248
+b2 0.434 1.000 0.471 0.406
+b3 0.415 0.471 1.000 0.368
+b4 0.248 0.406 0.368 1.000
+Sample Size 
+[1] 462
+Probability values (Entries above the diagonal are adjusted for multiple tests.) 
+   b1 b2 b3 b4
+b1  0  0  0  0
+b2  0  0  0  0
+b3  0  0  0  0
+b4  0  0  0  0
+
+ Confidence intervals based upon normal theory.  To get bootstrapped values, try cor.ci
+      raw.lower raw.r raw.upper raw.p lower.adj upper.adj
+b1-b2     0.357 0.434     0.505     0     0.329     0.528
+b1-b3     0.336 0.415     0.488     0     0.308     0.511
+b1-b4     0.160 0.248     0.332     0     0.130     0.360
+b2-b3     0.397 0.471     0.539     0     0.370     0.561
+b2-b4     0.326 0.406     0.479     0     0.298     0.503
+b3-b4     0.287 0.368     0.445     0     0.257     0.470</code></pre>
+</div>
+</div>
 <p>Першим аргументом функції є таблиця даних. В квадратних дужках після імені таблиці можна вказати вектор номерів або імен змінних, які беруть участь в кореляційному аналізі – в даному прикладі це змінні у стовпчиках з другого по п’ятий. Аргумент method вказує функції, який саме з трьох коефіцієнтів кореляції має бути обчислений: Пірсона, Спірмена чи Кендала. Аргументу adjust передають назву метода корекції статистичної значущості з врахуванням кількості змінних (в даному прикладі це сучасний метод Хохберга). Для виведення довірчих інтервалів результати кореляційного аналізу, записані в об’єкті cm, мають друкуватися з опцією short = FALSE). Поглянемо на те, як між собою пов’язані перші чотири питання з шкали PSS:</p>
 <p>Таблиця 8. Кореляційна матриця</p>
 <pre><code>Correlation matrix 
@@ -593,11 +907,67 @@ b1-b3     0.336 0.415     0.488
 b1-b4     0.160 0.248     0.332 </code></pre>
 <p>Зв’язок категоріальних змінних. Застосування коефіцієнтів кореляції Пірсона до змінних, виміряних у п’ятибальній шкалі, суперечить припущенням, які лежать в основі цієї статистики: метрична шкала вимірювання змінних, лінійність зв’язку і двовимірний нормальний розподіл. Більш коректним і інформативним підходом в цьому випадку є побудова таблиці сполучення (contingency table) і вивчення нелінійного зв’язку в ній. Побудувати таку таблицю в R можна, наприклад, за допомогою функції contTables() з пакету jmv:</p>
 <p>Фрагмент коду 11. Побудова таблиці сполучення</p>
-<pre><code>library(jmv)
-contTables(
-  rows = b3, cols = sex, data = pss, 
-  phiCra = TRUE, taub = TRUE, pcCol = TRUE
-)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jmv)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">contTables</span>(</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">rows =</span> b3, <span class="at">cols =</span> sex, <span class="at">data =</span> pss, </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">phiCra =</span> <span class="cn">TRUE</span>, <span class="at">taub =</span> <span class="cn">TRUE</span>, <span class="at">pcCol =</span> <span class="cn">TRUE</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ CONTINGENCY TABLES
+
+ Contingency Tables                                                  
+ ─────────────────────────────────────────────────────────────────── 
+   b3                          Чоловіки     Жінки        Total       
+ ─────────────────────────────────────────────────────────────────── 
+   0        Observed                   7            2            9   
+            % within column      5.18519      0.61162      1.94805   
+                                                                     
+   1        Observed                  22           21           43   
+            % within column     16.29630      6.42202      9.30736   
+                                                                     
+   2        Observed                  30           55           85   
+            % within column     22.22222     16.81957     18.39827   
+                                                                     
+   3        Observed                  32           96          128   
+            % within column     23.70370     29.35780     27.70563   
+                                                                     
+   4        Observed                  44          153          197   
+            % within column     32.59259     46.78899     42.64069   
+                                                                     
+   Total    Observed                 135          327          462   
+            % within column    100.00000    100.00000    100.00000   
+ ─────────────────────────────────────────────────────────────────── 
+
+
+ χ² Tests                              
+ ───────────────────────────────────── 
+         Value       df    p           
+ ───────────────────────────────────── 
+   χ²    27.40444     4    0.0000165   
+   N          462                      
+ ───────────────────────────────────── 
+
+
+ Nominal                          
+ ──────────────────────────────── 
+                      Value       
+ ──────────────────────────────── 
+   Phi-coefficient          NaN   
+   Cramer's V         0.2435508   
+ ──────────────────────────────── 
+
+
+ Kendall's Tau-b                              
+ ──────────────────────────────────────────── 
+   Kendall's Tau-B    t           p           
+ ──────────────────────────────────────────── 
+         0.1820399    4.231026    0.0000233   
+ ──────────────────────────────────────────── </code></pre>
+</div>
+</div>
 <p>Аргументи функції вказують, які змінні відповідають рядкам (rows) і стовпчикам таблиці (cols), чи слід обчислювати показник сили зв’язку φ та V Крамера (phiCra) і виводити відсотки, обчислені по стовпчиках таблиці (pcCol).</p>
 <p>Як показав такий аналіз, найтісніший зв’язок між статтю досліджуваного і індикаторами шкали суб’єктивного стресу існує для третього питання: «Як часто протягом останнього місяця ви відчували себе знервованим чи в стані стресу?» . Наприклад, відповідь з кодом 4 – «Дуже часто» – дають 32.6% чоловіків (біля третини) і 46.8% жінок (біля половини). Статистика χ² (хі-квадрат) має значення 24.7 при чотирьох ступенях свободи, що є статистично значущим показником на рівні α = 0.001 і дозволяє відкинути нульову гіпотезу про те, категоріальні змінні не пов’язані в популяції студентів НаУКМА в 2019 році.</p>
 <p>Таблиця 11. Таблиця сполучення і критерій χ²</p>
@@ -622,12 +992,22 @@ contTables(
  ───────────────────────────────</code></pre>
 <p>Висновку про наявність статистично значущого зв’язку замало для сучасного дослідження, тому за допомогою функції v.chi.sq() з пакету MOTE ми можемо побудувати довірчий інтервал для V Крамера – міри сили зв’язку номінальних категоріальних змінних. Для її аргументів візьмемо інформацію з вищенаведених таблиць:</p>
 <p>Фрагмент коду 12. Побудова довірчих інтервалів для V Крамера і w Коена</p>
-<pre><code>library(MOTE)  
-v &lt;- v.chi.sq(x2 = 27.404, n = 462, r = 5, c = 2)
-unlist(v[1:3])
-
-# w Коена
-unlist(v[1:3]) * sqrt(2 - 1)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOTE)  </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">v.chi.sq</span>(<span class="at">x2 =</span> <span class="fl">27.404</span>, <span class="at">n =</span> <span class="dv">462</span>, <span class="at">r =</span> <span class="dv">5</span>, <span class="at">c =</span> <span class="dv">2</span>)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(v[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        v      vlow     vhigh 
+0.2435488 0.1635813 0.3362711 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># w Коена</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(v[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        v      vlow     vhigh 
+0.2435488 0.1635813 0.3362711 </code></pre>
+</div>
+</div>
 <p>В результаті отримаємо такі статистики: V = .24, 95% CI [.14, .26] та χ^2(8) = 27.40, p &lt; .001 (подання у стилі АПА). Завдяки простому перетворенню з V також можна отримати значення показника w Коена: w = 0.24, 95% CI [.16, .34]. Отже, мова тут йде про зв’язок середньої сили, який в популяції може виявитися і слабким.</p>
 
 

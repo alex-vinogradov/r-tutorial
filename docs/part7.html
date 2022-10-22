@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="uk-UA" xml:lang="uk-UA"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.235">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Т’юторіал з R для психологів - Порівняння середніх</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./part8.html" rel="next">
+<link href="./part6.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Порівняння середніх</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Т’юторіал з R для психологів</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Передмова</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">Вступ</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part1.html" class="sidebar-item-text sidebar-link">Приступаємо до аналізу</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part2.html" class="sidebar-item-text sidebar-link">Об’єм вибірки</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part3.html" class="sidebar-item-text sidebar-link">Якість даних</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part4.html" class="sidebar-item-text sidebar-link">Величина ефекту</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part5.html" class="sidebar-item-text sidebar-link">Перетворення змінних</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part6.html" class="sidebar-item-text sidebar-link">Описові статистики</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part7.html" class="sidebar-item-text sidebar-link active">Порівняння середніх</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./part8.html" class="sidebar-item-text sidebar-link">Кореляційний аналіз</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">Висновки</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">Література</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">на цій сторінці</h2>
+   
+  <ul>
+  <li><a href="#дві-незалежні-сукупності" id="toc-дві-незалежні-сукупності" class="nav-link active" data-scroll-target="#дві-незалежні-сукупності">Дві незалежні сукупності</a></li>
+  <li><a href="#більше-двох-незалежних-сукупностей" id="toc-більше-двох-незалежних-сукупностей" class="nav-link" data-scroll-target="#більше-двох-незалежних-сукупностей">Більше двох незалежних сукупностей</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Порівняння середніх</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="дві-незалежні-сукупності" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="дві-незалежні-сукупності">Дві незалежні сукупності</h2>
+<p>Після підготовки даних можна перейти до застосування статистичних критеріїв, призначених для перевірки гіпотез про існування відмінностей і зв’язків у популяції, що вивчається. Почнемо з порівняння двох незалежних груп ¬– чоловіків і жінок – за середнім значенням і дисперсією. Наступний блок містить виклик функції ttestIS(), яка виводить велику кількість корисної табличної і графічної інформації для такого порівняння:</p>
+<p>Фрагмент коду 8. Замовлення t-критерію Ст’юдента для незалежних груп</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jmv)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ttestIS</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> score <span class="sc">~</span> sex, <span class="at">data =</span> pss,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">welchs =</span> <span class="cn">TRUE</span>, <span class="at">mann =</span> <span class="cn">TRUE</span>, <span class="at">hypothesis =</span> <span class="st">"twoGreater"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">norm =</span> <span class="cn">TRUE</span>, <span class="at">eqv =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">effectSize =</span> <span class="cn">TRUE</span>, <span class="at">ciES =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">desc =</span> <span class="cn">TRUE</span>, <span class="at">plots =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Аргументу formula передається вираз, який містить символ ~ (тильда). Зліва від тильди вказано залежну неперервну змінну – сумарний бал score за шкалою стресу PSS. Після тильди йде незалежна дихотомічна змінна sex, за значеннями якої досліджувані потрапляють в одну з двох категорій за статтю. Додатково до t-критерію Ст’юдента для незалежних сукупностей функції замовляється обчислення критерію Уелча (аргумент welchs = TRUE), непараметричного критерію Манна-Уітні (аргумент mann = TRUE), величини ефекту d Коена і його довірчих інтервалів (аргументи effectSize = TRUE і ciES = TRUE), критерію Лівена для перевірки гіпотези про рівність дисперсій в двох сукупностях (аргумент eqv = TRUE), а також побудова таблиці з описовими статистиками і діаграми (аргументи desc = TRUE, plots = TRUE). Нарешті, аргумент hypothesis = “twoGreater” визначає тип альтернативної гіпотези: «у другій групі (тобто, у жінок) середнє значення є більшим у популяції».</p>
+<p>Як можемо бачити у наступній таблиці, всі три критерія дають можливість відкинути нульову гіпотезу про відсутність відмінностей середніх значень суб’єктивного переживання стресу чоловіків і жінок у популяції студентів НаУКМА в 2019 році на рівні α = 0.001 й прийняти альтернативну гіпотезу: середнє значення для чоловіків є меншим, ніж у жінок.</p>
+<p>Таблиця 3. Критерії для порівняння двох незалежних груп</p>
+<pre><code> INDEPENDENT SAMPLES T-TEST
+
+ Independent Samples T-Test
+ ────────────────────────────────────────────────────────── 
+                              Statistic    df     p         
+ ────────────────────────────────────────────────────────── 
+   score    Student's t           -4.17    460    &lt; .001    
+            Welch's t             -4.21    255    &lt; .001    
+            Mann-Whitney U        16683           &lt; .001    
+ ────────────────────────────────────────────────────────── 
+   Note. Hₐ μ &lt;sub&gt;Чоловіки&lt;/sub&gt; &lt; μ &lt;sub&gt;Жінки&lt;/sub&gt;</code></pre>
+<p>Опис величини ефекту</p>
+<pre><code>────────────────────────────────────────────────────────────────────────────────
+                                               Effect Size    Lower     Upper   
+────────────────────────────────────────────────────────────────────────────────
+  Student's t     Cohen's d                         -0.427    -0.629    -0.224  
+  Welch's t       Cohen's d                         -0.429                      
+  Mann-Whitney U  Rank biserial correlation          0.244                      
+────────────────────────────────────────────────────────────────────────────────</code></pre>
+<p>Перевірка припущень</p>
+<pre><code> ASSUMPTIONS
+
+ Normality Test (Shapiro-Wilk) 
+ ───────────────────────────── 
+            W        p       
+ ───────────────────────────── 
+   score    0.994    0.073   
+ ───────────────────────────── 
+   Note. A low p-value
+   suggests a violation of
+   the assumption of
+   normality
+
+
+ Homogeneity of Variances Test (Levene's) 
+ ──────────────────────────────────────── 
+            F        df    df2    p       
+ ──────────────────────────────────────── 
+   score    0.276     1    460    0.600   
+ ──────────────────────────────────────── 
+   Note. A low p-value suggests a
+   violation of the assumption of
+   equal variances</code></pre>
+<p>Описові статистики по групах</p>
+<pre><code> Group Descriptives                                              
+ ─────────────────────────────────────────────────────────────── 
+            Group       N      Mean    Median    SD      SE      
+ ─────────────────────────────────────────────────────────────── 
+   score    Чоловіки    135    19.5      19.0    7.26    0.625   
+            Жінки       327    22.6      23.0    7.41    0.410   
+ ─────────────────────────────────────────────────────────────── </code></pre>
+<p>Величина ефекту d дорівнює -0.427 (від’ємне значення з’явилося внаслідок того, що від меншого середнього віднімалося більше). За Дж. Коеном, це ефект майже середньої сили. Що важливіше, ми отримали не тільки точкову оцінку величини ефекту, але й 95-відсотковий довірчий інтервал, який несе інформацію про точність цієї оцінки: в популяції величина ефекту може знаходитися в проміжку від слабкого до посереднього:</p>
+<p>Критерій Лівена для цих даних дорівнює 0.276 з ступенями свободи 1 і 460 (таблиця не наводиться за браком місця). Таке або ще більше значення критерію, коли нульова гіпотеза про рівність дисперсій в популяції є вірною, можна отримати з ймовірністю 0.600 (р-значення). Отже, на рівні статистичної значущості α = 0.05 ми не можемо відкинути нульову гіпотезу про рівність дисперсій на користь альтернативної. Нарешті, таблиця з описовими статистиками для чоловіків і жінок дозволяє зрозуміти, яким є значення стресу для типового представника (середнє і медіана), з якою точністю вдалося оцінити середнє значення у популяції на основі вибіркових даних (стандартна похибка середнього SE), наскільки варіативними є дані в кожній групі (стандартне відхилення SD).</p>
+<p>На основі цих описових статистик будується графік з довірчими інтервалами навколо середніх значень, який більш наочно передає знайдені відмінності у рівні суб’єктивного стресу.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/t-test.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Порівняння середніх</figcaption><p></p>
+</figure>
+</div>
+<p>На графіку подані типові значення, довірчі інтервали для середніх</p>
+</section>
+<section id="більше-двох-незалежних-сукупностей" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="більше-двох-незалежних-сукупностей">Більше двох незалежних сукупностей</h2>
+<p>Якщо кількість груп, які порівнюються за середнім значенням, дві чи більше, дослідник може використати однофакторний дисперсійний аналіз для перевірки альтернативної гіпотези про те, що відмінності існують на рівні популяцій. На сьогоднішній день в методологічній літературі існує думка, що найкращим показником величини ефекту в цьому випадку є ω^2, а не η^2 – звичний показник частки поясненої дисперсії залежної змінної у вибірці, яка є зміщеною оцінкою поясненої дисперсії у популяції.</p>
+<p>Продемонструю використання однофакторного дисперсійного аналізу на прикладі даних про стрес. Нехай залежною змінною виступить score, сумарний бал по шкалі суб’єктивного стресу PSS, а незалежною – категоріальна змінна (фактор) fin, фінансовий стан сім’ї студента після перекодування. Фактор fin має три рівні після перекодування змінної fin_state: А – не вистачає грошей на їжу або вистачає на їжу, але одяг купувати вже складно, В – доводиться економити, щоб купити коштовні речі, С – можуть купувати деякі коштовні речі або можуть купувати все, що хочуть. Оскільки нестача фінансових ресурсів може виступати однією з прямих чи опосередкованих причин стресу, варто перевірити гіпотезу про існування відмінностей у сприйнятті стресу студентами в залежності від потрапляння в категорію А, В чи С. Для проведення аналізу скористаємося функцією ANOVA() з пакету jmv:</p>
+<p>Таблиця 5. Виклик однофакторного дисперсійного аналізу</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jmv)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ANOVA</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> score <span class="sc">~</span> fin, <span class="at">data =</span> pss,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">effectSize =</span> <span class="st">"omega"</span>, <span class="at">homo =</span> <span class="cn">TRUE</span>, <span class="at">norm =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">postHoc =</span> <span class="sc">~</span> fin, <span class="at">postHocCorr =</span> <span class="st">"scheffe"</span>, </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">emMeans =</span> <span class="sc">~</span> fin, <span class="at">emmTables =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Аргументи formula і data грають ту саму роль, що й у прикладі з t-критерієм Ст’юдента, аргументу effectSize передається назва показника величини ефекту, аргументи postHoc і postHocCorr визначають, за якою змінною проводиться попарний аналіз різниці середніх та метод корекції статистичної значущості при множинних порівняннях. Аргументи homo і norm замовляють перевірку припущень про однорідність дисперсій і нормальність розподілу залежної змінної, важливі умови для застосування дисперсійного аналізу. Нарешті, аргументи emMeans і emmTables замовляють виведення таблиці і графіку з описовими статистиками по групах. Наведу лише дві таблиці з великої кількості результатів, які генерує ця функція:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/anova.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Довірчі інтервали для середніх</figcaption><p></p>
+</figure>
+</div>
+<p>Таблиця 6. Таблиця дисперсійного аналізу і величина ефекту</p>
+<pre><code>ANOVA - score                                                       
+─────────────────────────────────────────────────────────────────── 
+           Sum of Squares   df   Mean Square   F      p       ω²    
+─────────────────────────────────────────────────────────────────── 
+fin                   808     2        403.8   7.38   &lt; .001  0.027 
+Residuals           25103   459         54.7                        
+─────────────────────────────────────────────────────────────────── </code></pre>
+<p>Отже, F критерій виявився статистично значущим на рівні 0.001, а величина ефекту вказує на слабку залежність. Оскільки критерії Лівена і Шапіро-Уілка виявилися статистично незначущими (тобто, дані не суперечать припущенням про те, що залежна змінна має нормальний розподіл і її дисперсія однакова в трьох групах), ми можемо використовувати F критерій для висновку про рівність середніх.</p>
+<p>Зверніть увагу, що ми отримали лише точкову оцінку величини ефекту, отже, потрібні додаткові дії для побудови довірчого інтервалу. Скористаємося функцією omega.F() з пакету MOTE. Значення для її аргументів візьмемо з таблиці дисперсійного аналізу, яка була наведена вище:</p>
+<pre><code> ANOVA
+
+ ANOVA - score                                                                    
+ ──────────────────────────────────────────────────────────────────────────────── 
+                Sum of Squares    df     Mean Square    F       p         ω²      
+ ──────────────────────────────────────────────────────────────────────────────── 
+   fin                     808      2          403.8    7.38    &lt; .001    0.027   
+   Residuals             25103    459           54.7                              
+ ──────────────────────────────────────────────────────────────────────────────── 
+
+
+ ASSUMPTION CHECKS
+
+ Homogeneity of Variances Test (Levene's) 
+ ──────────────────────────────────────── 
+   F        df1    df2    p       
+ ──────────────────────────────────────── 
+   0.753      2    459    0.471   
+ ──────────────────────────────────────── 
+
+
+ Normality Test (Shapiro-Wilk) 
+ ───────────────────────────── 
+   Statistic    p       
+ ───────────────────────────── 
+       0.995    0.118   
+ ───────────────────────────── 
+
+
+ POST HOC TESTS
+
+ Post Hoc Comparisons - fin                                                  
+ ─────────────────────────────────────────────────────────────────────────── 
+   fin         fin    Mean Difference    SE       df     t       p-scheffe   
+ ─────────────────────────────────────────────────────────────────────────── 
+   A      -    B                 3.99    1.462    459    2.73        0.025   
+          -    C                 5.28    1.427    459    3.70        0.001   
+   B      -    C                 1.28    0.725    459    1.77        0.210   
+ ─────────────────────────────────────────────────────────────────────────── 
+   Note. Comparisons are based on estimated marginal means
+
+
+ ESTIMATED MARGINAL MEANS
+
+ FIN
+
+ Estimated Marginal Means - fin             
+ ────────────────────────────────────────── 
+   fin    Mean    SE       Lower    Upper   
+ ────────────────────────────────────────── 
+   A      26.2    1.350     23.5     28.8   
+   B      22.2    0.561     21.1     23.3   
+   C      20.9    0.460     20.0     21.8   
+ ────────────────────────────────────────── </code></pre>
+<p>Фрагмент коду 9. Визначення довірчих інтервалів для величини ефекту ω²</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOTE)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">omega.F</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dfm =</span> <span class="dv">2</span>, <span class="at">dfe =</span> <span class="dv">459</span>, <span class="at">Fvalue =</span> <span class="fl">7.383</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">462</span>, <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(result[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>  omega  omegalow omegahigh 
+0.02689   0.00398   0.06059 </code></pre>
+<p>Отримані результати подаються в публікації у наступному вигляді: ω^2=.027, 95% CI [0.004, 0.061]. Отже, ми отримали слабкий ефект, який в популяції всіх студентів НаУКМА 2019 року може насправді знаходитися у діапазоні від тривіально малого до посереднього. Для точнішої оцінки знадобиться більша вибірка. Зазвичай після того, як дослідник приймає загальну альтернативну гіпотезу про існування відмінностей середніх між якимись групами, цілком логічним є поставити питання: які саме групи відрізняються (Post Hoc латиною означає «після того, як»)? Наступна таблиця містить результати всіх попарних порівнянь груп:</p>
+<p>Таблиця 7. Попарні порівняння середніх значень</p>
+<pre><code>Post Hoc Comparisons - fin                                    
+───────────────────────────────────────────────────────────── 
+fin     fin   Mean Difference   SE      df    t     p-tukey   
+───────────────────────────────────────────────────────────── 
+A   -   B                3.99   1.462   459   2.73    0.018   
+    -   C                5.28   1.427   459   3.70   &lt; .001   
+B   -   C                1.28   0.725   459   1.77    0.181   
+─────────────────────────────────────────────────────────────</code></pre>
+<p>Отже, лише найбідніші досліджувані статистично значущо відрізняються від представників двох інших категорій, різниця середніх за показником суб’єктивного стресу оцінюється в 3.99 і 5.38 балів за шкалою PSS відповідно.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./part6.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Описові статистики</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./part8.html" class="pagination-link">
+        <span class="nav-page-text">Кореляційний аналіз</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
